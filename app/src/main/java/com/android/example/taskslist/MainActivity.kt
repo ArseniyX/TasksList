@@ -13,14 +13,18 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
 
+    private val taskDataManager = TaskDataManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val tasks = taskDataManager.readList()
+
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        recyclerView.adapter = TaskListRecyclerViewAdapter()
+        recyclerView.adapter = TaskListRecyclerViewAdapter(tasks)
 
         fab.setOnClickListener {
 
