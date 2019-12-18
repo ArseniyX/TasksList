@@ -1,20 +1,27 @@
 package com.android.example.taskslist
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskListRecyclerViewAdapter(tasks: ArrayList<TaskList>) : RecyclerView.Adapter<TaskListViewHolder>() {
+class TaskListRecyclerViewAdapter(private val tasks: ArrayList<TaskList>) :
+    RecyclerView.Adapter<TaskListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val view = LayoutInflater.from(parent.context)
+            .inflate(
+                R.layout.task_list_item,
+                parent,
+                false)
+        return TaskListViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return tasks.size
     }
 
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 }
