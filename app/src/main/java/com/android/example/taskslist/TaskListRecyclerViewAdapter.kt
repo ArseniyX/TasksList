@@ -22,6 +22,14 @@ class TaskListRecyclerViewAdapter(private val tasks: ArrayList<TaskList>) :
 
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
 
+        holder.listPosition.text = (position + 1).toString()
+
+        holder.listText.text = tasks[position].name
+    }
+
+    fun addList(task: TaskList) {
+        tasks.add(task)
+        notifyItemInserted(tasks.size - 1)
     }
 
 }

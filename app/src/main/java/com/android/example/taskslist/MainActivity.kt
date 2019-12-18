@@ -1,9 +1,12 @@
 package com.android.example.taskslist
 
 import android.os.Bundle
+import android.text.InputType
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -11,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     private val taskDataManager = TaskDataManager()
 
@@ -27,7 +30,36 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = TaskListRecyclerViewAdapter(tasks)
 
         fab.setOnClickListener {
+            showAddTaskDialog()
+        }
+    }
 
+    private fun showAddTaskDialog() {
+
+        val titleDialog = getString(R.string.add_task_dialog_title)
+
+        val buttonName = getString(R.string.add_task_button_name)
+
+        val editText = EditText(this)
+        editText.inputType = InputType.TYPE_CLASS_TEXT
+
+        AlertDialog.Builder(this).apply {
+
+            setTitle(titleDialog)
+
+            setView(editText)
+
+            setPositiveButton(buttonName) { dialog, _ ->
+
+                val task = TaskList(editText.text.toString())
+
+                val recyclerViewAdapter = recyclerView.adapter
+                        as TaskListRecyclerViewAdapter
+
+                recyclerViewAdapter.addList(task)
+
+                dialog.dismiss()
+            }
         }
     }
 
